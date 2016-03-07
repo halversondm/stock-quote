@@ -7,12 +7,10 @@ var StockConstants = require('./StockConstants');
 
 var StockActions = {
 
-    create: function (stockSymbol, stockName, stockPrice) {
+    create: function (data) {
         AppDispatcher.dispatch({
             actionType: StockConstants.STOCK_CREATE,
-            stockSymbol: stockSymbol,
-            stockName: stockName,
-            stockPrice: stockPrice
+            data: data
         });
     },
     destroy: function (uiId) {

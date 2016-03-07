@@ -10,6 +10,7 @@ export default class StockList extends React.Component {
         super();
         this.state = {stocks: {initial: {stockSymbol: '', stockName: '', stockPrice: ''}}};
         this.onChange = this.onChange.bind(this);
+        this.deleteStock = this.deleteStock.bind(this);
     }
 
     componentDidMount() {
@@ -24,18 +25,39 @@ export default class StockList extends React.Component {
         this.setState({stocks: StockStore.getAll()});
     }
 
+    deleteStock(event) {
+        console.info(event);
+    }
+
     render() {
         return (
             <div>
+                <div className="row">
+                    <div className="col-sm-1"><h4>Symbol</h4></div>
+                    <div className="col-sm-3"><h4>Name</h4></div>
+                    <div className="col-sm-1"><h4>Price</h4></div>
+                    <div className="col-sm-1"><h4>Open</h4></div>
+                    <div className="col-sm-1"><h4>High</h4></div>
+                    <div className="col-sm-1"><h4>Low</h4></div>
+                    <div className="col-sm-1"><h4>Volume</h4></div>
+                </div>
+
                 {Object.keys(this.state.stocks).map(function (stockKey) {
                         var stock = this.state.stocks[stockKey];
                         return (
-                            <div key={stockKey}>
-                                <p>Stock Symbol: {stock.stockSymbol}</p>
+                            <div className="row" key={stockKey}>
+                                <div className="col-sm-1">{stock.stockSymbol}</div>
 
-                                <p>Stock Name: {stock.stockName}</p>
+                                <div className="col-sm-3">{stock.stockName}</div>
 
-                                <p>Stock Price: {stock.stockPrice}</p>
+                                <div className="col-sm-1">{stock.stockPrice}</div>
+                                <div className="col-sm-1">{stock.stockOpen}</div>
+                                <div className="col-sm-1">{stock.stockHigh}</div>
+                                <div className="col-sm-1">{stock.stockLow}</div>
+                                <div className="col-sm-1">{stock.stockVolume}</div>
+                                <div className="col-sm-1">
+                                    <button className="glyphicon glyphicon-trash" onClick={this.deleteStock}></button>
+                                </div>
                                 <hr/>
                             </div>
                         )

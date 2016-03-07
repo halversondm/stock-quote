@@ -15,19 +15,24 @@ var CHANGE_EVENT = 'change';
 var stocks = {};
 
 /**
- * Create a new facility from user input OR add existing stocks from the back-end
- * @param id - unique ID from the back-end or zero if new
- * @param facilityId - describes a facility
- * @param isFunding - determines if the facility is funded
- * @param facilityAmount - determines how much the facility is funded
+ * Create stock
+ * @param data
  */
-function create(stockSymbol, stockName, stockPrice) {
+function create(data) {
     var uiId = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
-    stocks[uiId] = {stockSymbol: stockSymbol, stockName: stockName, stockPrice: stockPrice};
+    stocks[uiId] = {
+        stockSymbol: data.Symbol,
+        stockName: data.Name,
+        stockPrice: data.LastPrice,
+        stockHigh: data.High,
+        stockOpen: data.Open,
+        stockLow: data.Low,
+        stockVolume: data.Volume
+    };
 }
 
 /**
- * Delete a facility
+ * Delete a stock
  * @param uiId
  */
 function destroy(uiId) {
@@ -60,7 +65,7 @@ var StockStore = assign({}, EventEmitter.prototype, {
 AppDispatcher.register(function (action) {
     switch (action.actionType) {
         case StockConstants.STOCK_CREATE:
-            create(action.stockSymbol, action.stockName, action.stockPrice);
+            create(action.data);
             StockStore.emitChange();
             break;
         case StockConstants.STOCK_DESTROY:

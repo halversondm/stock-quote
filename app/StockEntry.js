@@ -25,7 +25,7 @@ export default class StockEntry extends React.Component {
         })
             .done(function (data) {
                 console.info("success", data);
-                StockActions.create(data.Symbol, data.Name, data.LastPrice);
+                StockActions.create(data);
             }.bind(this))
             .fail(function (response) {
                 console.log(response);

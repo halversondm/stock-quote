@@ -6,6 +6,7 @@
 import React from 'react';
 import StockEntry from './StockEntry';
 import StockList from './StockList';
+import StockFooter from './StockFooter';
 
 export default class StockQuote extends React.Component {
     constructor() {
@@ -17,6 +18,7 @@ export default class StockQuote extends React.Component {
             <div className="container-fluid">
                 <StockEntry name="StockQuote"/>
                 <StockList />
+                <StockFooter />
             </div>
         );
     }

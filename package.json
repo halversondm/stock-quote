@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "startProd": "cross-env NODE_ENV=production node server",
-    "startHot": "cross-env NODE_ENV=development node server",
+    "startHot": "cross-env NODE_ENV=development babel-node server",
     "clean": "rimraf dist",
     "prebuild": "npm run clean",
     "build": "cross-env NODE_ENV=production webpack -p --progess --profile --colors",
@@ -20,6 +20,7 @@
   "author": "Dan Halverson",
   "license": "MIT",
   "devDependencies": {
+    "babel-cli": "^6.6.5",
     "babel-core": "^6.6.4",
     "babel-loader": "^6.2.4",
     "babel-plugin-react-transform": "^2.0.0",
