@@ -10,7 +10,13 @@ const baseURL = 'http://dev.markitondemand.com/Api/v2/Quote/jsonp?jsoncallback=J
 export default class StockEntry extends React.Component {
     constructor() {
         super();
+        this.state = {searchString: ''};
         this.handleNewSymbol = this.handleNewSymbol.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange (event) {
+        this.setState({searchString: event.target.value});
     }
 
     handleNewSymbol(event) {
@@ -30,6 +36,7 @@ export default class StockEntry extends React.Component {
             .fail(function (response) {
                 console.log(response);
             }.bind(this));
+        this.setState({searchString: ''});
     }
 
     render() {
@@ -37,12 +44,12 @@ export default class StockEntry extends React.Component {
             <div className="navbar navbar-default navbar-fixed-top">
                 <div className="container">
                     <div className="navbar-brand">{this.props.name}</div>
-                    <form className="navbar-form navbar-left">
+                    <div className="navbar-form navbar-left">
                         <div id="form-group">
                             <input type="text" className="form-control" placeholder="Search ..."
-                                   onBlur={this.handleNewSymbol}/>
+                                   onBlur={this.handleNewSymbol} onChange={this.handleChange} value={this.state.searchString}/>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         );
