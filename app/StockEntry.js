@@ -3,9 +3,7 @@
  */
 'use strict';
 import React from 'react';
-import $ from 'jquery/dist/jquery.js';
-import StockActions from './StockActions';
-const baseURL = 'http://dev.markitondemand.com/Api/v2/Quote/jsonp?jsoncallback=JSON_CALLBACK&symbol=';
+import StockLookupService from './StockLookupService';
 
 export default class StockEntry extends React.Component {
     constructor() {
@@ -15,7 +13,7 @@ export default class StockEntry extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    handleChange (event) {
+    handleChange(event) {
         this.setState({searchString: event.target.value});
     }
 
@@ -23,19 +21,7 @@ export default class StockEntry extends React.Component {
         if (event.target.value === null || event.target.value.length <= 0) {
             return;
         }
-        console.log(event.target.value);
-        var url = baseURL + event.target.value.trim();
-        $.ajax({
-            url: url,
-            dataType: 'jsonp'
-        })
-            .done(function (data) {
-                console.info("success", data);
-                StockActions.create(data);
-            }.bind(this))
-            .fail(function (response) {
-                console.log(response);
-            }.bind(this));
+        StockLookupService.makeCall(event.target.value);
         this.setState({searchString: ''});
     }
 
@@ -47,7 +33,8 @@ export default class StockEntry extends React.Component {
                     <div className="navbar-form navbar-left">
                         <div id="form-group">
                             <input type="text" className="form-control" placeholder="Search ..."
-                                   onBlur={this.handleNewSymbol} onChange={this.handleChange} value={this.state.searchString}/>
+                                   onBlur={this.handleNewSymbol} onChange={this.handleChange}
+                                   value={this.state.searchString}/>
                         </div>
                     </div>
                 </div>

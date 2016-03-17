@@ -29,7 +29,7 @@ export default class Stock extends React.Component {
                 <td>{this.props.stock.stockLow}</td>
                 <td>{this.props.stock.stockVolume}</td>
                 <td>
-                    <button className="glyphicon glyphicon-trash" onClick={this.deleteStock}></button>
+                    <i className="glyphicon glyphicon-trash" onClick={this.deleteStock}></i>
                 </td>
             </tr>
 

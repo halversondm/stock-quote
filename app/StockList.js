@@ -5,6 +5,7 @@
 import React from 'react';
 import StockStore from './StockStore';
 import Stock from './Stock';
+import StockLookupService from './StockLookupService';
 
 export default class StockList extends React.Component {
     constructor() {
@@ -15,6 +16,10 @@ export default class StockList extends React.Component {
 
     componentDidMount() {
         StockStore.addChangeListener(this.onChange);
+
+        this.props.stockSymbols.forEach(function (stock) {
+            StockLookupService.makeCall(stock);
+        });
     }
 
     componentWillUnmount() {
@@ -29,14 +34,17 @@ export default class StockList extends React.Component {
         return (
             <table className="table table-striped">
                 <thead>
-                <th>Symbol</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Open</th>
-                <th>High</th>
-                <th>Low</th>
-                <th>Volume</th>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Open</th>
+                    <th>High</th>
+                    <th>Low</th>
+                    <th>Volume</th>
+                </tr>
                 </thead>
+
                 <tbody>
                 {Object.keys(this.state.stocks).map(function (stockKey) {
                         var stock = this.state.stocks[stockKey];
@@ -51,4 +59,12 @@ export default class StockList extends React.Component {
         );
     }
 }
+
+StockList.propTypes = {
+    stockSymbols: React.PropTypes.array
+};
+
+StockList.defaultProps = {
+    stockSymbols: []
+};
 

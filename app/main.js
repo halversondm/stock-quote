@@ -8,4 +8,6 @@ import bootstrapCSS from 'bootstrap/dist/css/bootstrap.css';
 import bootstrapJS from 'bootstrap/dist/js/bootstrap.js';
 import styles from './app.css';
 
-ReactDOM.render(<StockQuote />, document.getElementById('root'));
+let initialList = ["MSFT", "AAPL", "JPM", "AMZN", "T", "F"];
+
+ReactDOM.render(<StockQuote stockSymbols={initialList}/>, document.getElementById('root'));

@@ -17,9 +17,17 @@ export default class StockQuote extends React.Component {
         return (
             <div className="container-fluid">
                 <StockEntry name="StockQuote"/>
-                <StockList />
+                <StockList stockSymbols={this.props.stockSymbols}/>
                 <StockFooter />
             </div>
         );
     }
 }
+
+StockQuote.propTypes = {
+    stockSymbols: React.PropTypes.array
+};
+
+StockQuote.defaultProps = {
+    stockSymbols: []
+};
